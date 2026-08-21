@@ -249,7 +249,11 @@
   });
 
   /* ---------- lucruri care merg oricum ---------- */
+  var lastArtWidth = window.innerWidth;
   window.addEventListener('resize', function () {
+    /* pe mobil, bara de adrese schimbă doar înălțimea; ignorăm ca să nu reîncadrăm pozele degeaba */
+    if (window.innerWidth === lastArtWidth) return;
+    lastArtWidth = window.innerWidth;
     nodes.forEach(function (n) {
       if (n.ratio && n.art) sizeArt(n.art, n.ratio);
     });
@@ -535,6 +539,10 @@
   function bind() {
     if (window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
+      /* pe mobil, bara de adrese care apare/dispare la scroll declanșează
+         resize-uri false; fără asta, progresul sare brusc și „muchia de
+         sticlă" se lățește nebunește pe post de dreptunghi colorat */
+      ScrollTrigger.config({ ignoreMobileResize: true });
       ScrollTrigger.create({
         trigger: reel, start: 'top top', end: 'bottom bottom',
         onUpdate: function (self) { target = self.progress; }
@@ -543,11 +551,19 @@
         setTimeout(function () { ScrollTrigger.refresh(); }, 250);
       });
     } else {
+      var manualTotal = 0;
+      var recalcManual = function () {
+        manualTotal = reel.getBoundingClientRect().height - window.innerHeight;
+      };
       var manual = function () {
         var r = reel.getBoundingClientRect();
-        var total = r.height - window.innerHeight;
-        target = total > 0 ? clamp(-r.top / total, 0, 1) : 0;
+        target = manualTotal > 0 ? clamp(-r.top / manualTotal, 0, 1) : 0;
       };
+      recalcManual();
+      window.addEventListener('resize', recalcManual);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(recalcManual, 250);
+      });
       window.addEventListener('scroll', manual, { passive: true });
       window.addEventListener('resize', manual);
       manual();
