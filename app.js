@@ -450,8 +450,6 @@
      ========================================================== */
   var reel = document.getElementById('reel');
   var spine = document.getElementById('spine');
-  var tc = document.getElementById('tc');
-  var tcVal = document.getElementById('tcVal');
   var hint = document.getElementById('hint');
   var fade = document.getElementById('atmoFade');
   var flash = document.getElementById('flash');
@@ -529,10 +527,7 @@
     fade.style.opacity = range(p, 0.950, 0.996).toFixed(3);
     topBar.style.opacity = (1 - Math.min(range(p, 0.90, 0.94), 1 - range(p, 0.985, 1))).toFixed(3);
 
-    /* riglă de timp și indiciu */
-    var secs = Math.min(20, Math.round(p / STORY_END * 20));
-    tcVal.textContent = '0:' + (secs < 10 ? '0' : '') + secs;
-    tc.style.opacity = Math.min(range(p, 0.02, 0.07), 1 - range(p, 0.88, 0.94)).toFixed(3);
+    /* indiciu */
     hint.style.opacity = (1 - range(p, 0.01, 0.05)).toFixed(3);
   }
 

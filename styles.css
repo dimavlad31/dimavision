@@ -186,15 +186,7 @@ a{ color:inherit; }
   box-shadow:0 0 22px rgba(255,255,255,.22);
 }
 
-/* ---------- riglă de timp + indiciu ---------- */
-.tc{
-  position:fixed; z-index:5; right:calc(var(--pad) * .55); top:50%;
-  transform:translateY(-50%);
-  font-family:var(--mono); font-size:11px; letter-spacing:.18em;
-  color:var(--txt-dim); pointer-events:none; opacity:0;
-  transition:opacity .5s ease;
-  writing-mode:vertical-rl;
-}
+/* ---------- indiciu ---------- */
 .hint{
   position:fixed; z-index:5; left:50%; bottom:26px; transform:translateX(-50%);
   display:flex; flex-direction:column; align-items:center; gap:10px;
@@ -324,7 +316,7 @@ a{ color:inherit; }
 
 /* fallback fără WebGL / mișcare redusă */
 .plain .reel{ display:none; }
-.plain .spine, .plain .tc, .plain .hint, .plain .atmo__fade{ display:none; }
+.plain .spine, .plain .hint, .plain .atmo__fade{ display:none; }
 .plain .film{ position:relative; pointer-events:auto; }
 .plain .scene{
   position:relative; inset:auto;
@@ -346,7 +338,6 @@ a{ color:inherit; }
   .info__row{ grid-template-columns:1fr; gap:6px; }
   .map{ min-height:340px; padding:6px; }
   .map iframe{ min-height:320px; }
-  .tc{ right:8px; }
   .foot__base{ flex-direction:column; gap:8px; }
 }
 @media (max-height:620px){
