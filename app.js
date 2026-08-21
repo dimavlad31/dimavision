@@ -339,11 +339,13 @@
   ].join('\n');
 
   var VERT = [
+    'precision mediump float;',
     'varying vec2 vUv;',
     'void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }'
   ].join('\n');
 
   var DUST_VERT = [
+    'precision mediump float;',
     'attribute float aSeed;',
     'attribute float aSize;',
     'uniform float uTime, uEra, uPx;',
