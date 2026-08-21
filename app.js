@@ -515,17 +515,14 @@
       if (n.art) n.art.style.transform = 'translate3d(0,' + (y * -0.55).toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')';
     }
 
-    /* muchia de sticlă: crește odată cu povestea, se aprinde la „Timpul schimbă uneltele" */
-    var sIn = range(p, 0.03, 0.10);
-    var splitGlow = Math.min(range(p, (SPLIT_INDEX - 0.1) * step, (SPLIT_INDEX + 0.25) * step),
-                             1 - range(p, (SPLIT_INDEX + 0.7) * step, (SPLIT_INDEX + 1.05) * step));
-    var cut = range(p, 0.905, 0.968);            /* taie ecranul la final */
-    var sy = lerp(0.10, 1.0, easeOut(range(p, 0.03, STORY_END)));
-    var sx = 1 + Math.pow(cut, 2.2) * 900 + splitGlow * 1.6;
+    /* muchia de sticlă: apare doar la ultima scenă, când taie ecranul */
+    var cut = range(p, 0.905, 0.968);
+    var sy = lerp(0.10, 1.0, easeOut(cut));
+    var sx = 1 + Math.pow(cut, 2.2) * 900;
 
-    spine.style.opacity = (Math.max(sIn * (0.45 + splitGlow * 0.55), cut)).toFixed(3);
+    spine.style.opacity = cut.toFixed(3);
     spine.style.transform = 'translateX(-50%) scaleY(' + sy.toFixed(3) + ') scaleX(' + sx.toFixed(2) + ')';
-    spine.style.filter = 'brightness(' + (1 + splitGlow * 0.5 + cut * 1.6).toFixed(2) + ')';
+    spine.style.filter = 'brightness(' + (1 + cut * 1.6).toFixed(2) + ')';
 
     /* cortina finală: muchia taie ecranul, albul se stinge în fundalul paginii */
     var flashOn = Math.min(range(p, 0.902, 0.945), 1 - range(p, 0.972, 0.998));
