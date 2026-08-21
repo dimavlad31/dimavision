@@ -168,17 +168,17 @@
      și apare în locul desenului. Dacă fișierul lipsește, rămâne desenul.
      ========================================================== */
   var SCENES = [
-    { art: 'village', place: 'Bociu, Huedin', sub: 'Cluj, România', lines: ['Totul a început aici.'], photo: '01-sat.png' },
-    { art: 'pane', lines: ['O meserie veche,', 'dusă din generație în generație.'], photo: '02-atelier-vechi.png' },
-    { art: 'wheel', lines: ['Cu căruța și calul,', 'în căutarea oamenilor care aveau nevoie.'], photo: '03-caruta.png' },
-    { art: 'road', lines: ['Drumuri lungi.', 'Încredere câștigată pas cu pas.'], photo: '04-drum.png' },
-    { art: 'stack', lines: ['Anii au trecut.', 'Pasiunea a rămas.'], photo: '05-ani.png' },
-    { art: 'diptych', lines: ['A doua generație a continuat.'], photo: '06-generatii.png' },
-    { art: 'pane', lines: ['Experiență. Răbdare. Calitate.'], photo: '07-maiestrie.png' },
-    { art: 'split', lines: ['Timpul schimbă uneltele.'], photo: '08-unelte.png' },
-    { art: 'cnc', lines: ['Tehnologia duce mai departe.'], photo: '09-cnc.png' },
-    { art: 'screen', lines: ['Viziunea noastră.'], photo: '10-proiect.png' },
-    { art: 'mirror', lines: ['Aceleași valori.', 'Un nou standard.'], photo: '11-oglinda.png' },
+    { art: 'village', place: 'Bociu, Huedin', sub: 'Cluj, România', lines: ['Totul a început aici.'], photo: '01-sat.jpg' },
+    { art: 'pane', lines: ['O meserie veche,', 'dusă din generație în generație.'], photo: '02-atelier-vechi.jpg' },
+    { art: 'wheel', lines: ['Cu căruța și calul,', 'în căutarea oamenilor care aveau nevoie.'], photo: '03-caruta.jpg' },
+    { art: 'road', lines: ['Drumuri lungi.', 'Încredere câștigată pas cu pas.'], photo: '04-drum.jpg' },
+    { art: 'stack', lines: ['Anii au trecut.', 'Pasiunea a rămas.'], photo: '05-ani.jpg' },
+    { art: 'diptych', lines: ['A doua generație a continuat.'], photo: '06-generatii.jpg' },
+    { art: 'pane', lines: ['Experiență. Răbdare. Calitate.'], photo: '07-maiestrie.jpg' },
+    { art: 'split', lines: ['Timpul schimbă uneltele.'], photo: '08-unelte.jpg' },
+    { art: 'cnc', lines: ['Tehnologia duce mai departe.'], photo: '09-cnc.jpg' },
+    { art: 'screen', lines: ['Viziunea noastră.'], photo: '10-proiect.jpg' },
+    { art: 'mirror', lines: ['Aceleași valori.', 'Un nou standard.'], photo: '11-oglinda.jpg' },
     { claim: true, lines: ['Următorul capitol', '<em>începe acum.</em>'], words: 'Tradiție. Experiență. Evoluție.', photo: null },
     { logo: true, words: 'Clar, se vede.', photo: null }
   ];
