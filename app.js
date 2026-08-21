@@ -223,7 +223,9 @@
 
     film.appendChild(el);
 
-    var node = { el: el, art: el.querySelector('[data-art], .scene__logo'), load: null };
+    /* logo-light.png nu are linia din mijloc chiar la 50% din lățimea imaginii,
+       ci la ~45.86%; decalăm ca să cadă exact sub spine */
+    var node = { el: el, art: el.querySelector('[data-art], .scene__logo'), load: null, logoShift: sc.logo ? 4.14 : 0 };
 
     /* fotografia se cere abia când cadrul se apropie; desenul ține locul până atunci */
     if (sc.photo) {
@@ -512,7 +514,10 @@
       var y = lerp(26, -26, local);
       var sc = lerp(1.02, 0.985, local);
       n.el.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
-      if (n.art) n.art.style.transform = 'translate3d(0,' + (y * -0.55).toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')';
+      if (n.art) {
+        var shift = n.logoShift ? ' translateX(' + n.logoShift + '%)' : '';
+        n.art.style.transform = 'translate3d(0,' + (y * -0.55).toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')' + shift;
+      }
     }
 
     /* muchia de sticlă: apare doar la ultima scenă, când taie ecranul */

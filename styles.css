@@ -163,7 +163,7 @@ a{ color:inherit; }
   text-transform:uppercase; color:var(--txt-dim);
 }
 /* linia din logo-light.png nu e la 50% din lățimea imaginii ci la ~45.86%; decalăm ca să cadă exact sub spine */
-.scene__logo{ width:min(520px,80vw); opacity:.96; transform:translateX(12%); }
+.scene__logo{ width:min(520px,80vw); opacity:.96; transform:translateX(4.14%); }
 .scene__logo + .scene__words{ margin-top:26px; }
 
 /* ---------- muchia de sticlă (firul poveștii) ---------- */
