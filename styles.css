@@ -1,0 +1,361 @@
+/* ==========================================================
+   DIMA VISION — povestea pe scroll + coming soon
+   Paleta pleacă din sepia (trecutul) și ajunge în petrol (azi)
+   ========================================================== */
+
+:root{
+  --bg:        #08090B;
+  --bg-2:      #0D1013;
+
+  --sepia:     #C9A227;   /* aur cald, din trecut */
+  --sepia-dim: #8A6E23;
+  --steel:     #92C4E2;   /* petrolul din logo, luminat */
+  --steel-dim: #2C516C;
+
+  --txt:       #ECEFF1;
+  --txt-dim:   #93A0A8;
+
+  --display: 'Jost', system-ui, sans-serif;
+  --body:    'Manrope', system-ui, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  --pad: clamp(20px, 5vw, 64px);
+  --wrap: 1160px;
+
+  /* interpolate din JS pe măsură ce povestea avansează */
+  --accent: #C9A227;
+  --era: 0;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--body);
+  font-size:clamp(15px,1.05vw,17px);
+  line-height:1.65;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+img,iframe{ display:block; max-width:100%; }
+a{ color:inherit; }
+::selection{ background:var(--accent); color:#08090B; }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; }
+
+.mono{ font-family:var(--mono); font-size:.82em; letter-spacing:.04em; }
+
+/* ---------- bara de sus ---------- */
+.top{
+  position:fixed; inset:0 0 auto 0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px var(--pad);
+  mix-blend-mode:normal;
+}
+.top__logo img{ height:clamp(16px,2.2vw,22px); width:auto; opacity:.92; }
+.top__tel{
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+  text-decoration:none; color:var(--txt-dim);
+  transition:color .4s ease;
+}
+.top__tel:hover{ color:var(--accent); }
+.dot{
+  width:6px; height:6px; border-radius:50%; background:var(--accent);
+  animation:pulse 2.8s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(201,162,39,.5); }
+  70%{ box-shadow:0 0 0 9px rgba(201,162,39,0); }
+  100%{ box-shadow:0 0 0 0 rgba(201,162,39,0); }
+}
+
+/* ---------- atmosfera ---------- */
+.atmo{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 40%, #1A1207 0%, #0B0906 55%, #060505 100%);
+}
+.atmo canvas{ display:block; width:100%; height:100%; }
+.atmo__fade{
+  position:fixed; inset:0; z-index:5; pointer-events:none;
+  opacity:0; background:var(--bg);
+}
+.flash{
+  position:fixed; inset:0; z-index:5; pointer-events:none;
+  opacity:0; background:#F7FAFB;
+}
+.scene__photo{
+  width:100%; height:100%; object-fit:cover;
+  animation:frameIn .9s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes frameIn{
+  from{ opacity:0; transform:scale(1.04); }
+  to{ opacity:1; transform:none; }
+}
+
+/* ---------- cadrele poveștii ---------- */
+.film{ position:fixed; inset:0; z-index:3; pointer-events:none; }
+
+.scene{
+  position:absolute; inset:0;
+  display:grid; align-content:center; justify-items:center;
+  padding:96px var(--pad) 112px;
+  opacity:0; visibility:hidden;
+  will-change:opacity, transform;
+}
+.scene__art{
+  position:relative;
+  width:min(860px, 88vw);
+  aspect-ratio:16 / 9;
+  margin-bottom:clamp(22px,3.4vh,40px);
+  color:var(--accent);
+  overflow:hidden;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.02);
+  box-shadow:0 30px 70px rgba(0,0,0,.5);
+  transition:width .4s cubic-bezier(.2,.7,.2,1), height .4s cubic-bezier(.2,.7,.2,1);
+}
+.scene__art::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(236,239,241,.14), inset 0 0 90px rgba(0,0,0,.55);
+}
+.scene__art svg{ padding:6%; opacity:.85; }
+.scene__art svg{ width:100%; height:auto; overflow:visible; }
+.scene__art svg *{
+  fill:none; stroke:currentColor;
+  stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;
+}
+.scene__art .fill{ fill:currentColor; stroke:none; }
+.scene__art .faint{ opacity:.38; }
+.scene__art .dash{ stroke-dasharray:4 7; opacity:.6; }
+
+.scene__tc{
+  font-family:var(--mono); font-size:11px; letter-spacing:.24em;
+  color:var(--accent); margin:0 0 16px;
+  padding:5px 10px; border:1px solid currentColor;
+}
+.scene__place{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(26px,4.4vw,52px); letter-spacing:.22em;
+  margin:0 0 6px; text-transform:uppercase;
+}
+.scene__sub{
+  font-family:var(--mono); font-size:12px; letter-spacing:.2em;
+  color:var(--txt-dim); margin:0 0 26px;
+}
+.scene__line{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(19px,2.9vw,36px); line-height:1.28; letter-spacing:.02em;
+  margin:0; max-width:20ch; text-align:center; text-wrap:balance;
+}
+.scene__line + .scene__line{ margin-top:.35em; color:var(--txt-dim); }
+.scene--claim .scene__line{ font-size:clamp(24px,5.2vw,58px); letter-spacing:.06em; max-width:16ch; }
+.scene--claim .scene__line em{ font-style:normal; color:var(--accent); }
+.scene__words{
+  margin-top:clamp(22px,4vh,40px);
+  font-family:var(--mono); font-size:11px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--txt-dim);
+}
+/* linia din logo-light.png nu e la 50% din lățimea imaginii ci la ~45.86%; decalăm ca să cadă exact sub spine */
+.scene__logo{ width:min(520px,80vw); opacity:.96; transform:translateX(12%); }
+.scene__logo + .scene__words{ margin-top:26px; }
+
+/* ---------- muchia de sticlă (firul poveștii) ---------- */
+.spine{
+  position:fixed; z-index:4; top:0; bottom:0;
+  left:50%; width:2px; pointer-events:none;
+  opacity:0; will-change:transform, opacity;
+}
+.spine i{
+  position:absolute; inset:0; display:block;
+  background:linear-gradient(to bottom,
+    transparent 0%, rgba(255,255,255,.35) 18%, #FFFFFF 50%, rgba(255,255,255,.35) 82%, transparent 100%);
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 55%, transparent) 18%,
+    #FFFFFF 50%,
+    color-mix(in srgb, var(--accent) 55%, transparent) 82%,
+    transparent 100%);
+  transform-origin:50% 50%;
+  box-shadow:0 0 22px rgba(255,255,255,.22);
+}
+
+/* ---------- riglă de timp + indiciu ---------- */
+.tc{
+  position:fixed; z-index:5; right:calc(var(--pad) * .55); top:50%;
+  transform:translateY(-50%);
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em;
+  color:var(--txt-dim); pointer-events:none; opacity:0;
+  transition:opacity .5s ease;
+  writing-mode:vertical-rl;
+}
+.hint{
+  position:fixed; z-index:5; left:50%; bottom:26px; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--txt-dim); pointer-events:none;
+  transition:opacity .4s ease;
+}
+.hint i{ width:1px; height:36px; background:linear-gradient(to bottom,var(--accent),transparent); }
+
+.reel{ height:900vh; position:relative; z-index:0; }
+
+/* ---------- coming soon ---------- */
+.soon{ position:relative; z-index:6; background:var(--bg); }
+
+.hero{
+  min-height:100svh;
+  display:grid; align-content:center; justify-items:center;
+  text-align:center; padding:120px var(--pad) 96px;
+  background:
+    radial-gradient(90% 60% at 50% 8%, rgba(146,196,226,.10) 0%, transparent 60%),
+    var(--bg);
+}
+.hero__logo{ width:min(560px,84vw); }
+.hero__tag{
+  margin:22px 0 0; font-family:var(--mono);
+  font-size:12px; letter-spacing:.42em; text-transform:uppercase; color:var(--steel);
+}
+.hero__soon{
+  margin:clamp(28px,6vh,56px) 0 0;
+  font-family:var(--display); font-weight:200;
+  font-size:clamp(30px,6.4vw,74px); letter-spacing:.3em; text-transform:uppercase;
+  line-height:1;
+}
+.hero__lede{ margin:26px 0 0; max-width:46ch; color:var(--txt-dim); }
+.hero__cta{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:34px; }
+.hero__words{
+  margin:clamp(40px,7vh,72px) 0 0;
+  font-family:var(--mono); font-size:11px; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--txt-dim); opacity:.8;
+}
+
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 24px; border:1px solid rgba(236,239,241,.28);
+  font-family:var(--body); font-size:14px; font-weight:400; letter-spacing:.02em;
+  text-decoration:none; white-space:nowrap;
+  transition:border-color .35s, background .35s, color .35s, transform .35s;
+}
+.btn:hover{ border-color:var(--steel); color:var(--steel); transform:translateY(-2px); }
+.btn--gold{ background:var(--sepia); border-color:var(--sepia); color:#0A0906; font-weight:500; }
+.btn--gold:hover{ background:#DCB63C; border-color:#DCB63C; color:#0A0906; }
+
+/* patru repere */
+.marks{
+  max-width:var(--wrap); margin-inline:auto;
+  padding:clamp(64px,9vw,110px) var(--pad);
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:rgba(236,239,241,.1);
+  border-block:1px solid rgba(236,239,241,.1);
+}
+.mark{ background:var(--bg); padding:clamp(24px,2.6vw,34px) clamp(20px,2vw,28px); }
+.mark svg{ width:26px; height:26px; margin-bottom:20px; color:var(--sepia); }
+.mark svg path{ fill:none; stroke:currentColor; stroke-width:1.2; stroke-linejoin:round; stroke-linecap:round; }
+.mark h3{
+  font-family:var(--display); font-weight:400; font-size:17px;
+  letter-spacing:.06em; text-transform:uppercase; margin:0 0 10px;
+}
+.mark p{ margin:0; font-size:14px; color:var(--txt-dim); }
+
+/* atelier + hartă */
+.place{ max-width:var(--wrap); margin-inline:auto; padding:clamp(64px,9vw,110px) var(--pad); }
+.eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--steel); margin:0 0 16px;
+}
+.place__head h2{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(26px,4vw,46px); letter-spacing:.03em; line-height:1.16; margin:0;
+}
+.place__grid{
+  margin-top:clamp(36px,5vw,60px);
+  display:grid; grid-template-columns:1.35fr 1fr; gap:clamp(20px,3vw,44px);
+}
+.map{ position:relative; min-height:440px; border:1px solid rgba(236,239,241,.16); padding:10px; }
+.map iframe{ width:100%; height:100%; min-height:420px; border:0; filter:grayscale(.4) contrast(1.05) brightness(.95); }
+.map__pin{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none;
+}
+.map__pulse{ width:14px; height:14px; border-radius:50%; background:var(--steel); box-shadow:0 0 0 0 rgba(146,196,226,.55); animation:pulse 2.4s infinite; }
+.map__tag{
+  font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  background:#06070A; color:var(--steel); padding:5px 10px; border:1px solid rgba(146,196,226,.35);
+}
+.info__row{
+  display:grid; grid-template-columns:104px 1fr; gap:16px;
+  padding:18px 0; border-bottom:1px solid rgba(236,239,241,.12);
+}
+.info__row:first-child{ border-top:1px solid rgba(236,239,241,.12); }
+.info__k{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--steel); padding-top:3px; }
+.info__v{ font-size:15px; }
+.info__v a{ text-decoration:none; border-bottom:1px solid var(--steel-dim); }
+.info__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+.info__note{ margin-top:22px; font-size:13px; color:var(--txt-dim); max-width:44ch; }
+
+/* subsol */
+.foot{ max-width:var(--wrap); margin-inline:auto; padding:0 var(--pad) 40px; }
+.foot__row{
+  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  padding-bottom:24px; border-bottom:1px solid rgba(236,239,241,.12);
+}
+.foot__logo{ height:18px; width:auto; opacity:.85; }
+.replay{
+  background:none; border:0; cursor:pointer; padding:0;
+  font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--txt-dim); transition:color .3s;
+}
+.replay:hover{ color:var(--accent); }
+.foot__base{
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  padding-top:20px; font-size:12px; color:var(--txt-dim);
+}
+
+/* reveal */
+.reveal{ opacity:0; transform:translateY(20px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.reveal.is-in{ opacity:1; transform:none; }
+
+/* fallback fără WebGL / mișcare redusă */
+.plain .reel{ display:none; }
+.plain .spine, .plain .tc, .plain .hint, .plain .atmo__fade{ display:none; }
+.plain .film{ position:relative; pointer-events:auto; }
+.plain .scene{
+  position:relative; inset:auto;
+  opacity:1; visibility:visible;
+  min-height:auto; padding:14vh var(--pad);
+}
+.plain .atmo{ opacity:.9; }
+
+/* ---------- responsive ---------- */
+@media (max-width:1024px){
+  .marks{ grid-template-columns:repeat(2,1fr); }
+  .place__grid{ grid-template-columns:1fr; }
+}
+@media (max-width:640px){
+  .reel{ height:820vh; }
+  .marks{ grid-template-columns:1fr; }
+  .scene{ padding:84px 18px 92px; }
+  .scene__art{ width:min(520px,92vw); margin-bottom:20px; }
+  .info__row{ grid-template-columns:1fr; gap:6px; }
+  .map{ min-height:340px; padding:6px; }
+  .map iframe{ min-height:320px; }
+  .tc{ right:8px; }
+  .foot__base{ flex-direction:column; gap:8px; }
+}
+@media (max-height:620px){
+  .scene__art{ width:min(520px,62vw); margin-bottom:14px; }
+  .scene__tc{ display:none; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+  .dot,.map__pulse{ animation:none; }
+}

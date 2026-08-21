@@ -1,0 +1,20 @@
+IMAGINILE DIN POVESTE
+=====================
+
+Cele 11 cadre folosesc ilustrațiile din assets/story/ (01-sat.jpg ... 11-oglinda.jpg).
+Sunt desenate din cod, nu sunt fotografii: assets/story/genereaza-imaginile.py le
+regenerează (are nevoie de Python cu Pillow și numpy).
+
+CUM PUI FOTOGRAFII REALE
+------------------------
+Când ai poze de la atelier, înlocuiește pur și simplu fișierele din assets/story/,
+păstrând numele. Sau deschide app.js, lista SCENES, și schimbă calea:
+
+  { tc: '0:00', ..., photo: 'assets/story/01-sat.jpg' }
+
+Recomandări pentru poze:
+- orizontale, 16:9, minim 1500 px lățime, sub ~250 KB (JPEG calitate 80)
+- cadrele 1-7 arată mai bine în sepia sau alb-negru; de la 8 încolo, culori normale
+  (asta urmează trecerea din storyboard: trecut cald → prezent rece)
+
+Dacă un fișier lipsește, cadrul rămâne cu desenul de linie din app.js — nu se strică nimic.
